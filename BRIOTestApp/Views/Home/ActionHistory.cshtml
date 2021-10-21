@@ -1,0 +1,50 @@
+﻿@model List<BRIOTestApp.Models.Action> 
+@functions{
+
+    public string ParseEvent(int number)
+    {
+        switch (number)
+        {
+            case 0:
+                return "Добавлен маркер";
+            case 1:
+                return "Удален последний маркер";
+            case 2:
+                return "Удалены все маркеры";
+            default:
+                return string.Empty;
+        }
+    }
+}
+
+<head>
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />    
+</head>
+
+@using (Html.BeginForm("NameSort", "Home"))
+{
+
+    <input class="sortButton" type="submit" value="Отсортировать по имени" />
+
+}
+@using (Html.BeginForm("DateSort", "Home"))
+{
+
+    <input class="sortButton" type="submit" value="Отсортировать по дате" />
+
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>События</th>
+            <th>Время</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var action in Model)
+        {
+            <tr><td>@action.Name</td><td>@ParseEvent((int)action.Event)</td><td>@action.Time</td></tr>
+        }
+    </tbody>
+</table>
